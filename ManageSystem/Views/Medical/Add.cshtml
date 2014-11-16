@@ -42,15 +42,40 @@
 <div class="rowdiv">
     <a id="a_submit" href="javascript:void(0)" onclick="submitForm()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
 </div>
+<div id="div_msg" class="easyui-dialog" title="提示" style="width:300px;height: 130px;padding:20px 0 10px 20px; " data-options="modal:true,cache:false,closed:true,
+     buttons:[{
+            text:'返回列表',
+            handle:function(){backList();}
+        },{
+            text:'继续添加',
+            handle:function(){againAdd();}
+        }]">
+    <span id="msg" style="padding:10px;"></span>
+</div>
 <script>
     function submitForm() {
-        $("#medical").form('submit',{
+        $("#medical").form('submit', {
             url: "/Medical/Save",
             success: function (data) {
-                alert(data);
-                var result = $.parseJSON(data);
-                $.messager.alert(result);
+                var result = jQuery.parseJSON(data);
+                if (result.ResultType != 0) {
+                    $.messager.alert("提示", result.Message, "error");
+                } else {
+                    $("#msg").html(result.Message);
+                    $("#div_msg").dialog("open");
+                }
+                
             }
         });
+    }
+
+    function backList() {
+        alert("dd");
+        window.parent.addTab('病历列表', '/Medical/index');
+    }
+
+    function againAdd() {
+        alert("dd");
+        window.parent.addTab('添加病历', '/Medical/Add');
     }
 </script>
