@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - CLZDoctor管理系统</title>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/themes/bootstrap/css")
+    @Styles.Render("~/Content/sys.default.css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/easyui/js")
+    @Scripts.Render("~/Scripts/jquery-easyui-1.4/sys.default.js")
+</head>
+<body class="easyui-layout">
+    <div region="north" border="true" class="cs-north">
+        <div class="cs-north-bg">
+            <div class="cs-north-logo"><span style="float:left;padding-top:8px;padding-left: 10px;">CLZDoctor管理系统</span></div>
+            <ul class="ui-skin-nav"></ul>
+        </div>
+    </div>
+    <div region="west" border="true" split="true" title="菜单导航" class="cs-west">
+        <div class="easyui-accordion" fit="true" border="false">
+            <div title="方剂管理">
+                <p>  <a href="javascript:void(0);" src="/PrescripType/Index" class="cs-navi-tab">方剂分类</a></p>
+                <p>  <a href="javascript:void(0);" src="/BackManage/Product" class="cs-navi-tab">添加方剂</a></p>
+                <p>  <a href="javascript:void(0);" src="/Prescription/Index" class="cs-navi-tab">方剂列表</a></p>
+            </div>
+            <div title="药材管理">
+                <p> <a href="javascript:void(0);" src="/BackManage/Account" class="cs-navi-tab">添加药材</a></p>
+                <p>  <a href="javascript:void(0);" src="/BackManage/Column" class="cs-navi-tab">药材列表</a></p>
+            </div>
+            <div title="病历管理">
+                <p> <a href="javascript:void(0);" src="/Medical/Index" class="cs-navi-tab">病历列表</a></p>
+            </div>
+        </div>
+    </div>
+    <div id="mainPanle" region="center" border="true" border="false" style="overflow:hidden;">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false">
+            <div title="Home">
+                <div class="cs-home-remark">
+                    欢迎使用蓝光内容管理系统！！！
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div region="south" border="false" id="south" style="text-align:center;">管理系统</div>
+
+    <div id="mm" class="easyui-menu cs-tab-menu">
+        <div id="mm-tabupdate">刷新</div>
+        <div class="menu-sep"></div>
+        <div id="mm-tabclose">关闭</div>
+        <div id="mm-tabcloseother">关闭其他</div>
+        <div id="mm-tabcloseall">关闭全部</div>
+    </div>
+</body>
+</html>
