@@ -12,47 +12,68 @@
         padding: 5px;
     }
 </style>
-<form id="medical" method="POST">
-    <div class="rowdiv">
-        <label>姓名：</label><input name="Patient" type="text" class="easyui-textbox" style="width:200px;height:30px;" />
+<div id="toolbar" class="easyui-panel" style="padding:0;margin:0;" data-options="border:false">
+    <div class="rowdiv" style="background-color: #F5F5F5;padding-top:15px;padding-bottom:10px;">
+        <a id="a_submit" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+        <a id="a_reset" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">重置</a>
     </div>
-    <div class="rowdiv">
-        <label>性别：</label>
-        <select class="easyui-combobox">
-            <option value="0">女</option>
-            <option value="1">男</option>
-        </select>
-    </div>
-    <div class="rowdiv">
-        <label>年龄：</label><input name="Age" type="text" class="easyui-numberbox " style="width:60px;height:30px;" />
-    </div>
-    <div class="rowdiv">
-        <label>诊断：</label><input name="Diagnose" class="easyui-textbox" data-options="multiline:true" style="width:500px;height:200px;" />
-    </div>
-    <div class="rowdiv">
-        <label>治疗：</label><input name="Treatment" class="easyui-textbox" data-options="multiline:true" style="width:500px;height:200px;" />
-    </div>
-    <div class="rowdiv">
-        <label>电话：</label><input name="Contract" class="easyui-textbox" style="width:200px;height:30px;" />
-    </div>
-    <div class="rowdiv">
-        <label>处方：</label><input name="Prescription" class="easyui-textbox" data-options="multiline:true" style="width:500px;height:200px;" />
-    </div>
-</form>
-<div class="rowdiv">
-    <a id="a_submit" href="javascript:void(0)" onclick="submitForm()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+    <form id="medical" method="POST">
+        <div id="div_bl" class="easyui-tabs" style="width:100%;height:400px;" data-options="border:true">
+            <div title="基本信息" style="padding:20px;">
+                <div class="rowdiv">
+                    <label>姓名：</label><input name="Patient" type="text" class="easyui-textbox" style="width:200px;height:30px;" />
+                </div>
+                <div class="rowdiv">
+                    <label>性别：</label>
+                    <select class="easyui-combobox">
+                        <option value="0">女</option>
+                        <option value="1">男</option>
+                    </select>
+                </div>
+                <div class="rowdiv">
+                    <label>年龄：</label><input name="Age" type="text" class="easyui-numberbox " style="width:60px;height:30px;" />
+                </div>
+                <div class="rowdiv">
+                    <label>电话：</label><input name="Contract" class="easyui-textbox" style="width:200px;height:30px;" />
+                </div>
+            </div>
+            <div title="诊断">
+                <div class="rowdiv">
+                    <input name="Diagnose" class="easyui-textbox" data-options="multiline:true" style="width: 790px; height: 350px; " />
+                </div>
+            </div>
+            <div title="治疗">
+                <div class="rowdiv">
+                    <input name="Treatment" class="easyui-textbox" data-options="multiline:true" style="width: 790px; height: 350px; " />
+                </div>
+            </div>
+            <div title="处方">
+                <div class="rowdiv">
+                    <input name="Prescription" class="easyui-textbox" data-options="multiline:true" style="width: 790px; height: 350px; " />
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <div id="div_msg" class="easyui-dialog" title="提示" style="width:300px;height: 130px;padding:20px 0 10px 20px; " data-options="modal:true,cache:false,closed:true,
      buttons:[{
             text:'返回列表',
-            handle:function(){backList();}
+            handler:function(){backList();}
         },{
             text:'继续添加',
-            handle:function(){againAdd();}
+            handler:function(){againAdd();}
         }]">
     <span id="msg" style="padding:10px;"></span>
 </div>
 <script>
+    $(function () {
+        $("#a_submit").on("click", submitForm);
+        $("#a_reset").on("click", reset);
+        $("#toolbar").panel({
+            title: "添加病历",
+            iconCls: "icon-add"
+        });
+    });
     function submitForm() {
         $("#medical").form('submit', {
             url: "/Medical/Save",
@@ -63,19 +84,24 @@
                 } else {
                     $("#msg").html(result.Message);
                     $("#div_msg").dialog("open");
+                    $("#a_submit").unbind("click").linkbutton("disable");
                 }
-                
+
             }
         });
     }
 
     function backList() {
-        alert("dd");
         window.parent.addTab('病历列表', '/Medical/index');
+        $("#div_msg").dialog("close");
     }
 
     function againAdd() {
-        alert("dd");
         window.parent.addTab('添加病历', '/Medical/Add');
+        $("#div_msg").dialog("close");
+    }
+
+    function reset() {
+        $("#medical").form("reset");
     }
 </script>
