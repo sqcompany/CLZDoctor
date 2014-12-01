@@ -4,7 +4,7 @@ using Ninject;
 
 namespace CLZDoctor.Domain
 {
-    public class MedicalCore:IMedicalCore
+    public class MedicalCore : IMedicalCore
     {
         private readonly static IKernel Kernel = new StandardKernel(new DomainModule());
         public int Insert(Entities.Medical medical)
@@ -17,7 +17,7 @@ namespace CLZDoctor.Domain
             return Kernel.Get<IMedicalRepo>().SelectMedicals();
         }
 
-        public IEnumerable<Entities.Medical> SelectMedicals(int take, int skip,out int count)
+        public IEnumerable<Entities.Medical> SelectMedicals(int take, int skip, out int count)
         {
             count = Kernel.Get<IMedicalRepo>().Size();
             return Kernel.Get<IMedicalRepo>().SelectMedicals(take, skip);
@@ -26,6 +26,21 @@ namespace CLZDoctor.Domain
         public bool Update(int id, int isVisit)
         {
             return Kernel.Get<IMedicalRepo>().Update(id, isVisit);
+        }
+        public bool Update(Entities.Medical medical)
+        {
+            return Kernel.Get<IMedicalRepo>().Update(medical);
+        }
+
+        public bool Delete(int id)
+        {
+            return Kernel.Get<IMedicalRepo>().Delete(id);
+        }
+
+
+        public Entities.Medical SelectMedical(int id)
+        {
+            return Kernel.Get<IMedicalRepo>().SelectMedical(id);
         }
     }
 }
