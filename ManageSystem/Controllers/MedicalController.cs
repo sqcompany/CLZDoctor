@@ -39,23 +39,35 @@ namespace ManageSystem.Controllers
 
         public ActionResult Edit(int id)
         {
+            ViewBag.Data = _medicalCore.SelectMedical(id);
             return View();
         }
 
         public ActionResult Save(Medical medical)
         {
+            if (medical == null)
+                return View(Json(new OperationResult(OperationResultType.ParamError, "信息不能为空！")));
+            if (string.IsNullOrEmpty(medical.Patient))
+                return View(Json(new OperationResult(OperationResultType.ParamError, "姓名不能为空！")));
+
+
             bool state;
             if (medical.Id != 0)
             {
-                state = false;
+                state = _medicalCore.Update(medical);
             }
             else
             {
                 state = _medicalCore.Insert(medical) > 0;
             }
-            return state 
-                ? Json(new OperationResult(OperationResultType.Success,"保存成功！"), JsonRequestBehavior.AllowGet) 
+            return state
+                ? Json(new OperationResult(OperationResultType.Success, "保存成功！"), JsonRequestBehavior.AllowGet)
                 : Json(new OperationResult(OperationResultType.Error, "保存失败，请稍后再试！"), JsonRequestBehavior.AllowGet);
+        }
+
+        public string Remove(int Id)
+        {
+            return _medicalCore.Delete(Id) ? "success" : "error";
         }
     }
 }
