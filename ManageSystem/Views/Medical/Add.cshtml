@@ -18,7 +18,7 @@
     </div>
     <div class="rowdiv">
         <label>性别：</label>
-        <select class="easyui-combobox">
+        <select name="Gender" class="easyui-combobox">
             <option value="0">女</option>
             <option value="1">男</option>
         </select>
@@ -47,9 +47,9 @@
         $("#medical").form('submit',{
             url: "/Medical/Save",
             success: function (data) {
-                alert(data);
-                var result = $.parseJSON(data);
-                $.messager.alert(result);
+               // alert(data);
+               var result = $.parseJSON(data);
+               $.messager.alert("提示", result.Message);
             }
         });
     }

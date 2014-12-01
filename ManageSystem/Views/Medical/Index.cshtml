@@ -56,7 +56,7 @@
                 { title: '诊断', field: 'Diagnose', width: 220, align: 'center' },
                 { title: '治疗', field: 'Treatment', width: 220, align: 'center' },
                 { title: '联系方式', field: 'Contract', width: 220, align: 'center' },
-                { title: '是否回访', field: 'IsVisit', width: 40, align: 'center' },
+                { title: '是否回访', field: 'IsVisit', width: 70, align: 'center' },
                 { title: '结果', field: 'VisitResult', width: 120, align: 'center' },
                 {
                     title: '创建时间', field: 'CreateTime', width: 130, align: 'center'
@@ -85,9 +85,10 @@
             $.messager.alert('提示', "亲，您还没有选择任何行哦！");
             return;
         }
+
         $.messager.confirm('提示', '亲，您确定要删除吗？', function (data) {
             if (data) {
-                $.post("/Prescription/Remove/" + row.Id, function (result) {
+                $.post("/Medical/Remove/" + row.Id, function (result) {
                     if (result == "success") {
                         $.messager.alert('提示', "亲，删除成功！");
                         reload();
