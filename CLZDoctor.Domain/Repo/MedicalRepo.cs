@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CLZDoctor.Entities;
+using System.Linq;
 using Dapper;
 using Ninject;
 
@@ -44,7 +45,7 @@ namespace CLZDoctor.Domain
             using (var conn = Kernel.Get<IBaseRepo>().OpenConnection())
             {
                 const string sql = "update medical set IsVisit=@IsVisit where Id=@Id";
-                return conn.Execute(sql, new { IsVisit = @isVisit, Id = id }) > 0;
+                return conn.Execute(sql, new { IsVisit = @isVisit, Id = @id }) > 0;
             }
         }
 
@@ -57,5 +58,43 @@ namespace CLZDoctor.Domain
                 return conn.ExecuteScalar<int>(sql);
             }
         }
+
+        public bool Delete(int Id)
+        {
+            using (var conn = Kernel.Get<IBaseRepo>().OpenConnection())
+            {
+                const string sql = "delete from medical where Id=@Id";
+                return conn.Execute(sql, new { Id = Id }) > 0;
+            }
+        }
+
+        public Medical SelectMedical(int id)
+        {
+            using (var conn = Kernel.Get<IBaseRepo>().OpenConnection())
+            {
+                const string sql = "select * from medical where Id=@Id";
+                return conn.Query<Medical>(sql, new { Id = id }).SingleOrDefault();
+            }
+        }
+
+        public bool Update(Medical medical)
+        {
+            using (var conn = Kernel.Get<IBaseRepo>().OpenConnection())
+            {
+                const string sql = @"update medical set
+                                                UpdateTime=@UpdateTime,
+                                                Patient=@Patient,
+                                                Age=@Age,
+                                                Gender=@Gender,     
+                                                Diagnose=@Diagnose,
+                                                Treatment=@Treatment,
+                                                Contract=@Contract,
+                                                IsVisit=@IsVisit,
+                                                VisitResult=@VisitResult,
+                                                Prescription=@Prescription where Id=@Id";
+               return conn.Execute(sql, medical) > 0;
+            }
+        }
+
     }
 }

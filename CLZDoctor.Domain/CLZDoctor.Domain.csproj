@@ -31,13 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\..\..\lib\Dapper.dll</HintPath>
+      <HintPath>..\packages\Dapper.1.38\lib\net40\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="Omu.ValueInjecter">
-      <HintPath>..\..\..\lib\Omu.ValueInjecter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -50,19 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\IgnoreCaseInjection.cs" />
     <Compile Include="Common\OperationResult.cs" />
     <Compile Include="Common\OperationResultType.cs" />
-    <Compile Include="Common\ReaderInjection.cs" />
     <Compile Include="Common\SqlHelper.cs" />
     <Compile Include="Core\GrabDataCore.cs" />
     <Compile Include="Core\MedicalCore.cs" />
     <Compile Include="Core\PrescriptionCore.cs" />
     <Compile Include="Core\PrescriptTypeCore.cs" />
+    <Compile Include="Core\RecipeCore.cs" />
     <Compile Include="ICore\IGrabDataCore.cs" />
     <Compile Include="ICore\IMedicalCore.cs" />
     <Compile Include="ICore\IPrescriptionCore.cs" />
     <Compile Include="ICore\IPrescriptTypeCore.cs" />
+    <Compile Include="ICore\IRecipeCore.cs" />
     <Compile Include="Ioc\DomainModule.cs" />
     <Compile Include="Data\IBaseRepo.cs" />
     <Compile Include="IRepo\IGrabDataRepo.cs" />
@@ -90,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Fakes Include="Fakes\Omu.ValueInjecter.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

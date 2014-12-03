@@ -12,6 +12,8 @@ namespace CLZDoctor.Domain
         IEnumerable<Medical> SelectMedicals(int take, int skip);
         int Size();
         bool Update(int id,int isVisit);
-
+        bool Update(Medical medical);
+        bool Delete(int id);
+        Medical SelectMedical(int id);
     }
 }

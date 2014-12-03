@@ -10,5 +10,10 @@ namespace CLZDoctor.Domain
         IEnumerable<Recipe> SelectList(int prescripId);
         List<int> SelectList(List<string> recipes);
         bool Delete(int prescriptId);
+
+        bool DeleteById(int Id);
+
+        IEnumerable<Recipe> SelectList(int take, int skip);
+        int Size();
     }
 }
