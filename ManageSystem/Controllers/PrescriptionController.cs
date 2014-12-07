@@ -43,16 +43,6 @@ namespace ManageSystem.Controllers
             {
                 list = _prescriptionCore.SelectPrescriptions(type, value, row, page, out count);
             }
-            //switch (type)
-            //{
-            //    case 2:
-            //        list = _prescriptionCore.SelectPrescriptions(value);
-            //        count = list.Count;
-            //        break;
-            //    default:
-            //        list = _prescriptionCore.SelectPrescriptions(type, value, row, page, out count);
-            //        break;
-            //}
 
             var json = new { total = count, rows = list };
             return Json(json, JsonRequestBehavior.AllowGet);
