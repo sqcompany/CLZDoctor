@@ -12,7 +12,7 @@ namespace CLZDoctor.Domain
         IEnumerable<Prescription> SelectList();
         IEnumerable<Prescription> SelectList(string name);
         IEnumerable<Prescription> SelectList(int type, string value, int take, int skip);
-        IEnumerable<Prescription> SelectList(List<int> ids);
+        IEnumerable<Prescription> SelectList(List<int> ids, int take, int skip, out int count);
         Prescription SelectPrescription(int id);
         bool Delete(int id);
     }

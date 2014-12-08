@@ -110,12 +110,15 @@ namespace CLZDoctor.Domain
             }
         }
 
-        public IEnumerable<Prescription> SelectList(List<int> ids)
+        public IEnumerable<Prescription> SelectList(List<int> ids, int take, int skip, out int count)
         {
             using (var conn = Kernel.Get<IBaseRepo>().OpenConnection())
             {
-                var sql = string.Format(" select * from prescription where Id in ({0})", string.Join(",", ids));
-                return conn.Query<Prescription>(sql);
+                var sql = string.Format(@"select Id,[Type],[Name],Alias,MakeUp,Effect,Remark,State,CreateTime,UpdateTime from 
+                    (select *,row_number() over(order by UpdateTime desc) n from prescription where Id in ({0})) pp where pp.n>@p0 and pp.n<=@p1", string.Join(",", ids));
+                var sql_count = string.Format("select count(1) from prescription where Id in({0})", string.Join(",", ids));
+                count = conn.ExecuteScalar<int>(sql_count);
+                return conn.Query<Prescription>(sql, new { p0 = (skip - 1) * take, p1 = skip * take });
             }
         }
 
@@ -155,7 +158,7 @@ namespace CLZDoctor.Domain
             using (var conn = Kernel.Get<IBaseRepo>().OpenConnection())
             {
                 const string sql = "select * from prescription where Id=@Id";
-                return conn.Query<Prescription>(sql, new {Id = id}).SingleOrDefault();
+                return conn.Query<Prescription>(sql, new { Id = id }).SingleOrDefault();
             }
         }
     }

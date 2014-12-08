@@ -55,6 +55,8 @@
     <Compile Include="Core\PrescriptionCore.cs" />
     <Compile Include="Core\PrescriptTypeCore.cs" />
     <Compile Include="Core\RecipeCore.cs" />
+    <Compile Include="ICore\IAccountCore.cs" />
+    <Compile Include="ICore\IFavoriteCore.cs" />
     <Compile Include="ICore\IGrabDataCore.cs" />
     <Compile Include="ICore\IMedicalCore.cs" />
     <Compile Include="ICore\IPrescriptionCore.cs" />

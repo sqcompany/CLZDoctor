@@ -10,7 +10,7 @@ namespace CLZDoctor.Domain
         void SplitRecipe();
         bool Update(Prescription prescription);
         List<Prescription> SelectPrescriptions(int type, string value, int take, int skip, out int count);
-        List<Prescription> SelectPrescriptions(List<string> names);
+        List<Prescription> SelectPrescriptionsByMakeUp(List<string> names, int take, int skip, out int count);
         Prescription SelectPrescription(int id);
         bool Delete(int id);
     }

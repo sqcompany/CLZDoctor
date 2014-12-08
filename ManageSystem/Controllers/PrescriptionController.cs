@@ -36,8 +36,7 @@ namespace ManageSystem.Controllers
             }
             if (type == 2 && names.Count > 1)
             {
-                list = _prescriptionCore.SelectPrescriptions(names);
-                count = list.Count;
+                list = _prescriptionCore.SelectPrescriptionsByMakeUp(names, row, page, out count);
             }
             else
             {
@@ -77,8 +76,8 @@ namespace ManageSystem.Controllers
                 sstate = _prescriptionCore.Insert(prescription) > 0;
             }
             return sstate
-                ? Json(new OperationResult(OperationResultType.Success),JsonRequestBehavior.AllowGet)
-                : Json(new OperationResult(OperationResultType.Error, "保存失败，请稍后再试！"),JsonRequestBehavior.AllowGet);
+                ? Json(new OperationResult(OperationResultType.Success), JsonRequestBehavior.AllowGet)
+                : Json(new OperationResult(OperationResultType.Error, "保存失败，请稍后再试！"), JsonRequestBehavior.AllowGet);
         }
 
         public string Remove(int id)
@@ -97,6 +96,6 @@ namespace ManageSystem.Controllers
             return View();
         }
 
-   
+
     }
 }

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="toolbar" style="padding-top:5px;">
+    <div style="margin:10px 10px">
+
+    </div>
+    <div style="margin-bottom:5px">
+        <a id="a_remove" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true">删除</a>
+        <a id="a_freeze" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true">冻结</a>
+        <a id="a_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true">刷新</a>
+        <div style="float:right;">
+            <input class="easyui-searchbox" data-options="prompt:'请输入内容',menu:'#mm',searcher:doSearch" style="width:350px;" />
+            <div id="mm">
+                <div data-options="name:'1',iconCls:'icon-ok'">用户名</div>
+                <div data-options="name:'2',iconCls:'icon-ok'">手机号</div>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="tbGrid"></table>
+<script>
+    function initData(type, value) {
+        var data = { type: type, value: value };
+        $("#tbGrid").datagrid({
+            fit: true,
+            title: '用户列表',
+            iconCls: 'icon-table',
+            toolbar: '#toolbar',
+            border: false,
+            queryParams: data,
+            url: '/UserManage/UserGrid',
+            idField: 'Id',
+            loadMsg: '亲，正在努力加载中……',
+            nowrap: false,
+            pagination: true, rownumbers: true, singleSelect: true, fitColumns: true, autoRowHeight: false,
+            pagePosition: 'bottom',
+            sortName: 'CreateTime', sortOrder: 'desc',
+            columns: [[
+                { title: 'ID', field: 'Id', width: 60, align: 'center' },
+                { title: '名称', field: 'Name', width: 120, align: 'center' },
+                { title: '手机号', field: 'Mobile', width: 120, align: 'center' },
+                { title: '密码', field: 'Password', width: 220, align: 'center' },
+                {
+                    title: '创建时间', field: 'CreateTime', width: 130, align: 'center'
+                }
+            ]]
+        });
+    }
+    function doSearch(value, name) {
+        initData(name, value);
+    }
+</script>
