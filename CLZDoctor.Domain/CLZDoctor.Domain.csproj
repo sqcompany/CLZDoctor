@@ -50,6 +50,8 @@
     <Compile Include="Common\OperationResult.cs" />
     <Compile Include="Common\OperationResultType.cs" />
     <Compile Include="Common\SqlHelper.cs" />
+    <Compile Include="Core\AccountCore.cs" />
+    <Compile Include="Core\FavoriteCore.cs" />
     <Compile Include="Core\GrabDataCore.cs" />
     <Compile Include="Core\MedicalCore.cs" />
     <Compile Include="Core\PrescriptionCore.cs" />

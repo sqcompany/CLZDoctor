@@ -28,6 +28,8 @@ namespace ManageSystem
             _ninjectKernel.Bind<IPrescriptTypeCore>().To<PrescriptTypeCore>();
             _ninjectKernel.Bind<IMedicalCore>().To<MedicalCore>();
             _ninjectKernel.Bind<IRecipeCore>().To<RecipeCore>();
+            _ninjectKernel.Bind<IAccountCore>().To<AccountCore>();
+            _ninjectKernel.Bind<IFavoriteCore>().To<FavoriteCore>();
         }
     }
 }

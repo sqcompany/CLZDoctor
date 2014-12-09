@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
@@ -1388,6 +1389,7 @@
     <Content Include="Views\Recipe\Add.cshtml" />
     <Content Include="Views\Recipe\Edit.cshtml" />
     <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\Favorite\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
