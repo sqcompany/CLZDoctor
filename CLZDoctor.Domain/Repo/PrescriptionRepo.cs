@@ -105,7 +105,7 @@ namespace CLZDoctor.Domain
             {
                 var strWhere = GetSearchWhere(type, value);
                 var sql = string.Format(@"select Id,[Type],[Name],Alias,MakeUp,Effect,Remark,State,CreateTime,UpdateTime from 
-                                    (select *,row_number() over (order by UpdateTime desc) n from prescription {0}) pp where pp.n>@p0 and pp.n<=@p1 ", strWhere);
+                                    (select *,row_number() over (order by UpdateTime desc) n from prescription {0}) pp where pp.n>@p0 and pp.n<=@p1 and State=0", strWhere);
                 return conn.Query<Prescription>(sql, new { p0 = (skip - 1) * take, p1 = skip * take });
             }
         }
