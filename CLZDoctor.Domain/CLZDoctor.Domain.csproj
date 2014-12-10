@@ -66,6 +66,7 @@
     <Compile Include="ICore\IRecipeCore.cs" />
     <Compile Include="Ioc\DomainModule.cs" />
     <Compile Include="Data\IBaseRepo.cs" />
+    <Compile Include="IRepo\IAccountRepo.cs" />
     <Compile Include="IRepo\IFavoriteRepo.cs" />
     <Compile Include="IRepo\IGrabDataRepo.cs" />
     <Compile Include="IRepo\IMaterialsRepo.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="IRepo\IRecipeRepo.cs" />
     <Compile Include="Data\SqlBaseRepo.cs" />
     <Compile Include="IService\IPrescriptionService.cs" />
+    <Compile Include="Repo\AccountRepo.cs" />
     <Compile Include="Repo\FavoriteRepo.cs" />
     <Compile Include="Repo\GrabDataRepo.cs" />
     <Compile Include="Repo\MaterialsRepo.cs" />

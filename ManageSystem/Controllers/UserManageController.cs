@@ -32,7 +32,7 @@ namespace ManageSystem.Controllers
         }
 
         #region 分页获取列表数据
-        [HttpGet]
+
         public ActionResult UserGrid(int type = 0, string value = "", int page = 1, int row = 10)
         {
             AccountQuery query = null;

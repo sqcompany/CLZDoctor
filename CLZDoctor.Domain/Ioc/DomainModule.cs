@@ -16,6 +16,8 @@ namespace CLZDoctor.Domain
             Bind<IPrescripTypeRepo>().To<PrescripTypeRepo>();
             Bind<IGrabDataRepo>().To<GrabDataRepo>();
             Bind<IMedicalRepo>().To<MedicalRepo>();
+            Bind<IFavoriteRepo>().To<FavoriteRepo>();
+            Bind<IAccountRepo>().To<AccountRepo>();
         }
     }
 }

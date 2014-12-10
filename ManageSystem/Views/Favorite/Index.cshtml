@@ -19,7 +19,7 @@
 <table id="tbGrid"></table>
 <script>
     $(function () {
-        initData();
+        initData(0, "");
         $("#a_reload").on("click", reload);
     })
     function initData(type, value) {
@@ -51,7 +51,7 @@
     }
     function doSearch(value, name) {//搜索
         initData(name, value);
-    }    
+    }
     function reload() {//刷新
         $("#tbGrid").datagrid("reload");
     }

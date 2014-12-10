@@ -1,20 +1,23 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CLZDoctor.Entities;
 
 namespace CLZDoctor.Domain
 {
     public class FavoriteCore:IFavoriteCore
     {
-        public int CreateFavorite(Entities.Favorite favorite)
+        private readonly static IKernel Kernel = new StandardKernel(new DomainModule());
+        public int CreateFavorite(Favorite favorite)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Entities.Favorite> GetFavorites(Entities.FavoriteQuery query, int take, int skip, out int count)
+        public IEnumerable<Favorite> GetFavorites(FavoriteQuery query, int take, int skip, out int count)
         {
-            throw new NotImplementedException();
+            return Kernel.Get<IFavoriteRepo>().SelectFavorites(query, take, skip, out count);
         }
 
         public bool DeleteFavorites(int id)

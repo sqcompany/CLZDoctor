@@ -28,8 +28,8 @@ namespace ManageSystem.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult FavoriteGrid(int type, string value = "", int page = 1, int row = 10)
+       
+        public ActionResult FavoriteGrid(int type = 0, string value = "", int page = 1, int row = 10)
         {
             FavoriteQuery query = null;
             switch (type)

@@ -1,40 +1,43 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CLZDoctor.Entities;
 
 namespace CLZDoctor.Domain
 {
     public class AccountCore : IAccountCore
     {
-        public int CreateAccount(Entities.Account account)
+        private readonly static IKernel Kernel = new StandardKernel(new DomainModule());
+        public int CreateAccount(Account account)
         {
-            throw new NotImplementedException();
+            return Kernel.Get<IAccountRepo>().InsertAccount(account);
         }
 
-        public IEnumerable<Entities.Account> GetAccounts(Entities.AccountQuery query, int take, int skip, out int count)
+        public IEnumerable<Account> GetAccounts(AccountQuery query, int take, int skip, out int count)
         {
-            throw new NotImplementedException();
+            return Kernel.Get<IAccountRepo>().SelectAccounts(query, take, skip, out count);
         }
 
-        public Entities.Account GetAccount(string mobile, string password)
+        public Account GetAccount(string mobile, string password)
         {
-            throw new NotImplementedException();
+            return Kernel.Get<IAccountRepo>().SelectAccountByMobile(mobile, password);
         }
 
         public bool ModifyState(int id, int currState)
         {
-            throw new NotImplementedException();
+            return Kernel.Get<IAccountRepo>().UpdateState(id, currState) > 0;
         }
 
         public bool ModifyPassword(int id, string password)
         {
-            throw new NotImplementedException();
+            return Kernel.Get<IAccountRepo>().UpdatePassword(id, password) > 0;
         }
 
         public bool DeleteAccount(int id)
         {
-            throw new NotImplementedException();
+            return Kernel.Get<IAccountRepo>().DeleteAccount(id) > 0;
         }
     }
 }

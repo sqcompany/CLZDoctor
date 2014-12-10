@@ -28,7 +28,7 @@ namespace CLZDoctor.Domain
             var strSql = new StringBuilder();
             strSql.Append("where 1=1 ");
             if (query.UserName != string.Empty)
-                strSql.Append(string.Format(" and [UserName] = '{0}'", query.UserName));
+                strSql.Append(string.Format(" and [UserName] like '%{0}%'", query.UserName));
             return strSql.ToString();
         }
     }
