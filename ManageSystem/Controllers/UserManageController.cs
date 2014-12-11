@@ -61,9 +61,9 @@ namespace ManageSystem.Controllers
         {
             var result = _accountCore.DeleteAccount(id);
             if (result)
-                return Json(new OperationResult(OperationResultType.Success, "删除成功！"), JsonRequestBehavior.DenyGet);
+                return Json(new OperationResult(OperationResultType.Success, "删除成功！"), JsonRequestBehavior.AllowGet);
             else
-                return Json(new OperationResult(OperationResultType.Error, "删除失败，请稍后再试！"), JsonRequestBehavior.DenyGet);
+                return Json(new OperationResult(OperationResultType.Error, "删除失败，请稍后再试！"), JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -73,9 +73,9 @@ namespace ManageSystem.Controllers
         {
             var result = _accountCore.ModifyState(id, 1);
             if (result)
-                return Json(new OperationResult(OperationResultType.Success, "冻结成功！"), JsonRequestBehavior.DenyGet);
+                return Json(new OperationResult(OperationResultType.Success, "冻结成功！"), JsonRequestBehavior.AllowGet);
             else
-                return Json(new OperationResult(OperationResultType.Error, "冻结失败，请稍后再试！"), JsonRequestBehavior.DenyGet);
+                return Json(new OperationResult(OperationResultType.Error, "冻结失败，请稍后再试！"), JsonRequestBehavior.AllowGet);
 
         }
         #endregion
