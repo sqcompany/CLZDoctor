@@ -49,6 +49,15 @@
                 { title: '手机号', field: 'Mobile', width: 120, align: 'center' },
                 { title: '密码', field: 'Password', width: 220, align: 'center' },
                 {
+                    title: '状态', field: 'CurrState', width: 80, align: 'center', formatter: function (value, row, index) {
+                        if (value == 0) {
+                            return "正常";
+                        } else {
+                            return "冻结";
+                        }
+                    }
+                },
+                {
                     title: '创建时间', field: 'CreateTime', width: 130, align: 'center'
                 }
             ]]
@@ -78,6 +87,11 @@
         var row = $("#tbGrid").datagrid("getSelected");
         if (row == null) {
             $.messager.alert('提示', "亲，您还没有选择任何行哦！");
+            return;
+        }
+        
+        if (row.CurrState == 1) {
+            $.messager.alert("提示", "亲，该用户已经冻结。");
             return;
         }
         $.messager.confirm('提示', '亲，您确定要冻结吗？', function (data) {

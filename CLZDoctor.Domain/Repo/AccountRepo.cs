@@ -115,7 +115,7 @@ namespace CLZDoctor.Domain
         private string SqlWhere(AccountQuery query)
         {
             var strSql = new StringBuilder();
-            strSql.Append("where 1=1 ");
+            strSql.Append("where State=0 ");
             if (query.Name != string.Empty)
                 strSql.Append(string.Format(" and [Name] like '%{0}%'", query.Name));
             if (query.Mobile != string.Empty)
