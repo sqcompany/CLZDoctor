@@ -76,12 +76,12 @@ namespace CLZDoctor.Domain
             return list;
         }
 
-        public List<Prescription> SelectPrescriptions(List<string> names)
+        public List<Prescription> SelectPrescriptionsByMakeUp(List<string> names, int take, int skip, out int count)
         {
             var ids = Kernel.Get<IRecipeRepo>().SelectList(names);
             var pres = new List<Prescription>();
-            if (ids.Count <= 0) return pres;
-            pres = Kernel.Get<IPrescriptionRepo>().SelectList(ids).ToList();
+            if (ids.Count <= 0) { count = 0; return null; }
+            pres = Kernel.Get<IPrescriptionRepo>().SelectList(ids, take, skip, out count).ToList();
             foreach (var pre in pres)
             {
                 foreach (var l in names)
