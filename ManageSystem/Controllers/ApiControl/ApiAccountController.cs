@@ -9,5 +9,6 @@ namespace ManageSystem.Controllers.ApiControl
 {
     public class ApiAccountController : ApiController
     {
+
     }
 }
