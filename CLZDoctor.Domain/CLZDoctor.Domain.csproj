@@ -33,6 +33,10 @@
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.38\lib\net40\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\NinjectSolu\NinjectSolu\ReptileWeb\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
     </Reference>
@@ -50,6 +54,7 @@
     <Compile Include="Common\OperationResult.cs" />
     <Compile Include="Common\OperationResultType.cs" />
     <Compile Include="Common\SqlHelper.cs" />
+    <Compile Include="Common\Util.cs" />
     <Compile Include="Core\AccountCore.cs" />
     <Compile Include="Core\FavoriteCore.cs" />
     <Compile Include="Core\GrabDataCore.cs" />
