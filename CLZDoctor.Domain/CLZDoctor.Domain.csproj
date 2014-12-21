@@ -54,7 +54,6 @@
     <Compile Include="Common\OperationResult.cs" />
     <Compile Include="Common\OperationResultType.cs" />
     <Compile Include="Common\SqlHelper.cs" />
-    <Compile Include="Common\Util.cs" />
     <Compile Include="Core\AccountCore.cs" />
     <Compile Include="Core\FavoriteCore.cs" />
     <Compile Include="Core\GrabDataCore.cs" />

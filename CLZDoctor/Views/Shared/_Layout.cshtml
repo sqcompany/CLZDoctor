@@ -1,36 +1,65 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery");
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Xiao YiYi</title>
+    @Styles.Render("~/Content/bootstrapcss")
 </head>
 <body>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a href="~/">ASP.NET Web API</a>
-                </p>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="nav-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img alt="小医医" src="~/Images/logo_head.png">
+                </a>
             </div>
-            <div class="float-right">
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("主页", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
-                </nav>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#login">登录</a>
+                    </li>
+                    <li><a href="javascript:void(0)">注册</a> </li>
+                    <li><a href="javascript:void(0)">我的收藏</a> </li>
+                </ul>
             </div>
         </div>
-    </header>
-    <div style="margin-top: 20px;">
+    </nav>
+    <div class="container">
         @RenderBody()
     </div>
+    <div id="login" class="modal fade">
+        <div class="modal-dialog" style="width:400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">用户登录</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-lg" style="margin-bottom:10px;">
+                        <span class="input-group-addon">用&nbsp;户&nbsp;名</span>
+                        <input type="text" class="form-control" name="LoginName" placeholder="请输入手机号/用户名">
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                        <input type="password" class="form-control" name="LoginPwd" placeholder="请输入密码">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">登录</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/bootstrapjs")
     @RenderSection("scripts", required: false)
 </body>
 </html>

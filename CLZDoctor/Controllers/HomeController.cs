@@ -4,24 +4,51 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CLZDoctor.Domain;
+using CLZDoctor.Domain.Common;
 using CLZDoctor.Entities;
+using Newtonsoft.Json;
 
 namespace CLZDoctor.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IPrescriptionCore _prescriptionCore;
+
+        public HomeController(IPrescriptionCore prescriptionCore)
+        {
+            _prescriptionCore = prescriptionCore;
+        }
+        [HttpGet]
         public ActionResult Index()
         {
             ViewBag.Title = "SQDoctor";
-            //var p = new PrescriptionCore();
-            //p.Insert(new Prescription
-            //{
-            //    Name = "异功散",
-            //    Alias = "异功散",
-            //    MakeUp = "人参去芦,白术,茯苓去皮,甘草炙,陈皮",
-            //    Effect = "健脾，益气，和胃",
-            //    Remark = "脾虚夹滞证。食欲不振，，或胸脘痞闷不舒，或呕吐泄泻，舌淡苔薄，脉弱。"
-            //});
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Search(int searchType = 1, string searchVal = "", int take = 10, int skip = 1)
+        {
+            if (string.IsNullOrEmpty(searchVal))
+                return Json(new OperationResult(OperationResultType.ParamError, "搜索内容不能为空！"), JsonRequestBehavior.AllowGet);
+            int count;
+            var list = _prescriptionCore.SelectPrescriptions(searchType, searchVal, take, skip, out  count);
+            var json = new { total = count, rows = list };
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult SearchResult(int searchType = 1, string searchVal = "", int pageIndex = 1, int pageSize = 10)
+        {
+            if (string.IsNullOrEmpty(searchVal))
+                return Json(new OperationResult(OperationResultType.ParamError, "搜索内容不能为空！"), JsonRequestBehavior.AllowGet);
+            int count;
+            var list = _prescriptionCore.SelectPrescriptions(searchType, searchVal, pageSize, pageIndex, out  count);
+            var result = new PageDataModel<Prescription>
+            {
+                TotalCount = count,
+                Rows = list
+            };
+            ViewBag.Result = result;
             return View();
         }
     }
