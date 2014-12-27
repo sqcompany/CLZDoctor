@@ -1,0 +1,108 @@
+﻿@using CLZDoctor.Entities;
+@{
+    ViewBag.Title = "Xiao YiYi -- 搜索结果";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model PageDataModel<Prescription>
+<div class="container-fluid" style="margin-top: 65px; ">
+    <div class="row">
+        <div class="col-lg-7 text-center">
+            @using (Html.BeginForm("SearchResult", "Home", FormMethod.Get, new { id = "formSearch" }))
+            {
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" id="btn_select" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span id="spn_txt" val="1">方剂名称</span> <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:void(0)" onclick="select(this)" val="1">方剂名称</a></li>
+                            <li><a href="javascript:void(0)" onclick="select(this)" val="2">方剂组成</a></li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <input type="hidden" id="searchType" name="searchType" value="1" />
+                    <input type="hidden" id="pageIndex" name="pageIndex" value="1" />
+                    <input type="text" id="SearchVal" class="form-control" name="SearchVal" placeholder="请输入方剂名称">
+                    <span class="input-group-btn">
+                        <button id="btn_search" class="btn btn-primary" onclick="search(1)" type="button">&nbsp;&nbsp;搜&nbsp;&nbsp;索&nbsp;&nbsp;</button>
+                    </span>
+                </div><!-- /input-group -->
+            }
+        </div><!-- /.col-lg-6 -->
+    </div>
+    <div style="margin-top:10px;">
+        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "result" }))
+        {
+            if (Model.TotalCount > 0 && Model != null && Model.Rows != null && Model.Rows.Count > 0)
+            {
+                <div class="list-group">
+                    @foreach (var item in Model.Rows)
+                    {
+                        <a href="@Url.Action("SearchDetail", "Home", new { @id = item.Id })" class="list-group-item">
+                            <h4 class="list-group-item-heading">
+                                @item.Name
+                            </h4>
+                            <p class="list-group-item-text">@item.MakeUp</p>
+                        </a>
+                    }
+                </div>
+                <div style="padding:0;">
+                    <ul id="pagination" class="pagination pagination-lg"></ul>
+                </div>
+            }
+            else
+            {
+                <span>对不起，没有搜索到您要的结果！</span>
+            }
+        }
+    </div>
+</div>
+<script src="~/Scripts/jquery.twbsPagination.min.js"></script>
+<script>
+    $(function () {
+        $("#SearchVal").val(getQueryString("searchVal"));
+        var type = getQueryString("searchType");
+        $("#spn_txt").html($("a[val='" + type + "']").text());
+        $("#searchType").val(type);
+        var pageIndex = getQueryString("pageIndex");
+        $('#pagination').twbsPagination({
+            startPage:@Model.PageIndex,
+            first: "",
+            prev: "上一页",
+            next: "下一页",
+            last: "",
+            totalPages: @Model.TotalCount,
+            visiblePages: 5,
+            onPageClick: function (event, page) {
+                $("#pageIndex").val(page);
+                search();
+            }
+        });
+    })
+    function search() {
+        var val = $("#SearchVal").val();
+        var type = $("#spn_txt").attr("val");
+        if (val == "")
+            return false;
+        $("#formSearch").submit();
+    }
+    function select(obj) {
+        $("#SearchVal").val("");
+        var txt = $(obj).text();
+        var val = $(obj).attr("val");
+        $("#spn_txt").html(txt);
+        $("#spn_txt").attr("val", val);
+        switch (val) {
+            case "1":
+                $("#searchType").val("1");
+                $("#SearchVal").attr("placeholder", "请输入方剂名称");
+                break;
+            case "2":
+                $("#searchType").val("2");
+                $("#SearchVal").attr("placeholder", "请输入方剂组成，多个以空格隔开");
+                break;
+        }
+    }
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURIComponent(r[2]); return null;
+    }
+</script>

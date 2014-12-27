@@ -7,6 +7,7 @@ using CLZDoctor.Domain;
 using CLZDoctor.Domain.Common;
 using CLZDoctor.Entities;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace CLZDoctor.Controllers
 {
@@ -39,17 +40,43 @@ namespace CLZDoctor.Controllers
         [HttpGet]
         public ActionResult SearchResult(int searchType = 1, string searchVal = "", int pageIndex = 1, int pageSize = 10)
         {
-            if (string.IsNullOrEmpty(searchVal))
-                return Json(new OperationResult(OperationResultType.ParamError, "搜索内容不能为空！"), JsonRequestBehavior.AllowGet);
             int count;
-            var list = _prescriptionCore.SelectPrescriptions(searchType, searchVal, pageSize, pageIndex, out  count);
+            var list = new List<Prescription>();
+            var names = new List<string>();
+            if (searchType == 2)
+            {
+                var strNames = searchVal.Trim().Replace(",", " ").Replace("，", " ");
+                strNames = Regex.Replace(strNames, @" +", " ");
+                names = strNames.Split(' ').ToList();
+            }
+            if (searchType == 2 && names.Count > 1)
+            {
+                list = _prescriptionCore.SelectPrescriptionsByMakeUp(names, pageSize, pageIndex, out count);
+            }
+            else
+            {
+                list = _prescriptionCore.SelectPrescriptions(searchType, searchVal, pageSize, pageIndex, out count);
+            }
+            foreach (var item in list)
+            {
+                item.Name = item.Name.Replace("<span style=\"color:red;font-weight:bold;\">", "").Replace("</span>", "");
+                item.MakeUp = item.MakeUp.Replace("<span style=\"color:red;font-weight:bold;\">", "").Replace("</span>", "");
+            }
             var result = new PageDataModel<Prescription>
             {
-                TotalCount = count,
-                Rows = list
+                TotalCount = (count + pageSize - 1) / pageSize,
+                Rows = list,
+                PageIndex = pageIndex,
+                PageSize = pageSize
             };
-            ViewBag.Result = result;
-            return View();
+            return View(result);
+        }
+
+        [HttpGet]
+        public ActionResult SearchDetail(int id)
+        {
+            var result = _prescriptionCore.SelectPrescription(id);
+            return View(result);
         }
     }
 }

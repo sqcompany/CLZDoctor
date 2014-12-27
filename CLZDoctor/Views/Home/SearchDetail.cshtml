@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "搜索结果详细";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CLZDoctor.Entities.Prescription
+<style>
+    .row-margin-top {
+        margin-top: 10px;
+        line-height:25px;
+    }
+</style>
+<div class="container-fluid" style="margin-top:25px;margin-bottom:20px;">
+    @if (Model != null)
+    {
+        <div class="page-header">
+            <h3>@Model.Name</h3>
+        </div>
+        <div class="row row-margin-top">
+            <div class="col-md-1">&nbsp;&nbsp;&nbsp;组&nbsp;&nbsp;成&nbsp;&nbsp;：</div>
+            <div class="col-md-6">@Model.MakeUp</div>
+        </div>
+        <div class="row row-margin-top">
+            <div class="col-md-1">&nbsp;&nbsp;&nbsp;功&nbsp;&nbsp;效&nbsp;&nbsp;：</div>
+            <div class="col-md-6">@Model.Effect</div>
+        </div>
+        <div class="row row-margin-top">
+            <div class="col-md-1">&nbsp;&nbsp;&nbsp;用&nbsp;&nbsp;法&nbsp;&nbsp;：</div>
+            <div class="col-md-6">@Model.Usage</div>
+        </div>
+        <div class="row row-margin-top">
+            <div class="col-md-1">&nbsp;&nbsp;&nbsp;方&nbsp;&nbsp;解&nbsp;&nbsp;：</div>
+            <div class="col-md-6">@Model.Explain</div>
+        </div>
+        <div class="row row-margin-top">
+            <div class="col-md-1">&nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;意&nbsp;&nbsp;：</div>
+            <div class="col-md-6">@Model.Notes</div>
+        </div>
+        <div class="row row-margin-top">
+            <div class="col-md-1">&nbsp;&nbsp;&nbsp;来&nbsp;&nbsp;源&nbsp;&nbsp;：</div>
+            <div class="col-md-6">@Model.Source</div>
+        </div>
+        <div class="row row-margin-top">
+            <div class="col-md-1">&nbsp;&nbsp;&nbsp;方&nbsp;&nbsp;歌&nbsp;&nbsp;：</div>
+            <div class="col-md-6">@Model.FangGe</div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>错误!</strong> 您所查看的方剂可能已经删除！
+        </div>
+    }
+</div>

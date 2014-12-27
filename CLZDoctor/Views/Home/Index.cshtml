@@ -2,13 +2,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container-fluid" style="top: 50%; left: 50%; position: absolute; margin: -200px 0 0 -320px; ">
-    <div class="row">
+    <div class="row" id="div_search">
         <div class="col-lg-8 text-center">
             <div style="margin-bottom:15px;">
                 <img src="~/Images/logo.png" />
             </div>
             <div class="input-group">
-                <input type="text" id="SearchVal" class="form-control" name="SearchVal">
+                <div class="input-group-btn">
+                    <button type="button" id="btn_select" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span id="spn_txt" val="1">方剂名称</span> <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0)" onclick="select(this)" val="1">方剂名称</a></li>
+                        <li><a href="javascript:void(0)" onclick="select(this)" val="2">方剂组成</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+                <input type="text" id="SearchVal" class="form-control" name="SearchVal" placeholder="请输入方剂名称">
                 <span class="input-group-btn">
                     <button id="btn_search" class="btn btn-primary" onclick="search()" type="button">&nbsp;&nbsp;搜&nbsp;&nbsp;索&nbsp;&nbsp;</button>
                 </span>
@@ -17,10 +24,37 @@
     </div><!-- /.row -->
 </div>
 <script>
+
+    //自定义扩展
+    $.fn.center = function () {
+        this.css("position", "absolute");
+        this.css("top", ($(window).height() - this.height()) / 2 + $(window).scrollTop() + "px");
+        this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
+        return this;
+    }
+    $(function () {
+        //$("#div_search").center();
+    })
     function search() {
         var val = $("#SearchVal").val();
+        var type = $("#spn_txt").attr("val");
         if (val == "")
             return false;
-        location.href = "/Home/SearchResult?searchType=1&searchVal=" + val;
+        location.href = "/Home/SearchResult?searchType=" + type + "&searchVal=" + val + "&pageIndex=1";
+    }
+    function select(obj) {
+        $("#SearchVal").val("");
+        var txt = $(obj).text();
+        var val = $(obj).attr("val");
+        $("#spn_txt").html(txt);
+        $("#spn_txt").attr("val", val);
+        switch (val) {
+            case "1":
+                $("#SearchVal").attr("placeholder", "请输入方剂名称");
+                break;
+            case "2":
+                $("#SearchVal").attr("placeholder", "请输入方剂组成，多个以空格隔开");
+                break;
+        }
     }
 </script>
