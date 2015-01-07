@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageSystem", "ManageSyste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabData", "GrabData\GrabData.csproj", "{5BBF6ADE-4478-4317-BC4C-F1EE0453B1AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5BBF6ADE-4478-4317-BC4C-F1EE0453B1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BBF6ADE-4478-4317-BC4C-F1EE0453B1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BBF6ADE-4478-4317-BC4C-F1EE0453B1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -40,7 +40,7 @@
         var type = $("#spn_txt").attr("val");
         if (val == "")
             return false;
-        location.href = "/Home/SearchResult?searchType=" + type + "&searchVal=" + val + "&pageIndex=1";
+        location.href = "/Home/SearchResult?searchType=" + type + "&searchVal=" + encodeURI(val) + "&pageIndex=1";
     }
     function select(obj) {
         $("#SearchVal").val("");

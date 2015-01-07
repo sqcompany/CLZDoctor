@@ -45,7 +45,7 @@ namespace CLZDoctor.Controllers
             var names = new List<string>();
             if (searchType == 2)
             {
-                var strNames = searchVal.Trim().Replace(",", " ").Replace("，", " ");
+                var strNames = searchVal.Trim().Replace(",", " ").Replace("，", " ").Replace("+", " ");
                 strNames = Regex.Replace(strNames, @" +", " ");
                 names = strNames.Split(' ').ToList();
             }

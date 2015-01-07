@@ -57,7 +57,7 @@
 <script src="~/Scripts/jquery.twbsPagination.min.js"></script>
 <script>
     $(function () {
-        $("#SearchVal").val(getQueryString("searchVal"));
+        $("#SearchVal").val(decodeURI(getQueryString("searchVal")));
         var type = getQueryString("searchType");
         $("#spn_txt").html($("a[val='" + type + "']").text());
         $("#searchType").val(type);
