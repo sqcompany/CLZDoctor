@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabData", "GrabData\GrabDa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WX.Domain", "WX.Domain\WX.Domain.csproj", "{0C95181A-F1CA-4212-A656-85A8997C8530}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,7 +46,10 @@ Global
 		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59C7460-FE6C-47C4-843A-F5FA7405E8B2}.Release|Any CPU.Build.0 = Release|Any CPU		{0C95181A-F1CA-4212-A656-85A8997C8530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C95181A-F1CA-4212-A656-85A8997C8530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C95181A-F1CA-4212-A656-85A8997C8530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C95181A-F1CA-4212-A656-85A8997C8530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
