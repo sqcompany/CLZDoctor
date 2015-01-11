@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ManageSystem/Views/Shared/_Layout.cshtml";
+}
+<div id="toolbar" style="padding-top:5px;">
+    <div style="margin:10px 10px">
+
+    </div>
+    <div style="margin-bottom:5px">
+        <a id="a_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true">刷新</a>
+        <div style="float:right;">
+            <input class="easyui-searchbox" data-options="prompt:'请输入内容',menu:'#mm',searcher:doSearch" style="width:350px;" />
+            <div id="mm">
+                <div data-options="name:'1',iconCls:'icon-ok'">用户名</div>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="tbGrid"></table>
+<script>
+    $(function () {
+        initData(0, "");
+        $("#a_reload").on("click", reload);
+    })
+    function initData(type, value) {
+        var data = { type: type, value: value };
+        $("#tbGrid").datagrid({
+            fit: true,
+            title: '收藏列表',
+            iconCls: 'icon-table',
+            toolbar: '#toolbar',
+            border: false,
+            queryParams: data,
+            url: '/Favorite/FavoriteGrid',
+            idField: 'Id',
+            loadMsg: '亲，正在努力加载中……',
+            nowrap: false,
+            pagination: true, rownumbers: true, singleSelect: true, fitColumns: true, autoRowHeight: false,
+            pagePosition: 'bottom',
+            sortName: 'CreateTime', sortOrder: 'desc',
+            columns: [[
+                { title: 'ID', field: 'Id', width: 60, align: 'center' },
+                { title: '用户名', field: 'UserName', width: 120, align: 'center' },
+                { title: '方剂名称', field: 'PrescripName', width: 180, align: 'center' },
+                { title: '备注', field: 'Remark', width: 220, align: 'center' },
+                {
+                    title: '创建时间', field: 'CreateTime', width: 130, align: 'center'
+                }
+            ]]
+        });
+    }
+    function doSearch(value, name) {//搜索
+        initData(name, value);
+    }
+    function reload() {//刷新
+        $("#tbGrid").datagrid("reload");
+    }
+</script>

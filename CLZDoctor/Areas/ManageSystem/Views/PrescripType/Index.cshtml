@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ManageSystem/Views/Shared/_Layout.cshtml";
+}
+<div id="toolbar" style="padding-top:5px;">
+    <div style="margin-bottom:5px">
+        <a id="a_add" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true">新增</a>
+        <a id="a_edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true">编辑</a>
+        <a id="a_remove" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true">删除</a>
+        <a id="a_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true">刷新</a>
+        <a id="a_collapse" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-collapse" plain="true">全部折叠</a>
+        <a id="a_expand" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-expand" plain="true">全部展开</a>
+    </div>
+</div>
+<table id="tbGrid"></table>
+<script>
+    $(function () {
+        initData();
+        $("#a_collapse").bind("click", collapseAll);
+        $("#a_expand").bind("click", expandAll);
+        $("#a_reload").bind("click", reload);
+    });
+    function initData() {
+        $("#tbGrid").treegrid({
+            fit: true,
+            title: '方剂分类',
+            iconCls: 'icon-table',
+            toolbar: '#toolbar',
+            border: false,
+            url: '/PrescripType/PrescripTypeGrid',
+            rownumbers: true,
+            animate:true,
+            idField: 'Id',
+            treeField: 'Name',
+            loadMsg: '亲，正在努力加载中……',
+            columns: [[
+                { title: '名称', field: 'Name', width: 120, align: 'left',halign:'center' },
+                { title: '备注', field: 'Remark', width: 300, align: 'left', halign: 'center' },
+                {
+                    title: '创建时间', field: 'CreateTime', width: 150, align: 'center'
+                }
+            ]]
+        });
+    }
+    function collapseAll() {
+        $('#tbGrid').treegrid('collapseAll');
+    }
+    function expandAll() {
+        $('#tbGrid').treegrid('expandAll');
+    }
+    function reload() {
+        $("#tbGrid").treegrid("reload");
+    }
+</script>

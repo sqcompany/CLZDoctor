@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ManageSystem/Views/Shared/_Layout.cshtml";
+}
+
+<div id="toolbar" style="padding-top:5px;">
+    <div style="margin:10px 10px">
+
+    </div>
+    <div style="margin-bottom:5px">
+        <a id="a_add" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true">新增</a>
+        <a id="a_edit" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true">编辑</a>
+        <a id="a_remove" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true">删除</a>
+        <a id="a_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true">刷新</a>
+        <a id="a_export" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-excel" plain="true">导入</a>
+        <div style="float:right;">
+            <input class="easyui-searchbox" data-options="prompt:'请输入内容',menu:'#mm',searcher:doSearch" style="width:350px;" />
+            <div id="mm">
+                <div data-options="name:'1',iconCls:'icon-ok'">名称</div>
+                <div data-options="name:'2',iconCls:'icon-ok'">组成</div>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="tbGrid"></table>
+<div id="div_dialog" class="easyui-dialog" title="查看方剂" style="width:600px;min-height: 400px" data-options="modal:true,cache:false,closed:true">
+    <div id="div_fj" style="padding:10px;line-height: 25px;"></div>
+</div>
+<script>
+    $(function () {
+        initData(0, "");
+        $("#a_add").bind("click", add);
+        $("#a_edit").bind("click", edit);
+        $("#a_remove").bind("click", del);
+        $("#a_reload").bind("click", reload);
+    });
+
+    function initData(type, value) {
+        var data = { type: type, value: value };
+        $("#tbGrid").datagrid({
+            fit: true,
+            title: '方剂列表',
+            iconCls: 'icon-table',
+            toolbar: '#toolbar',
+            border: false,
+            queryParams: data,
+            url: '@Url.Action("PrescriptionGrid", "Prescription")',
+            idField: 'Id',
+            loadMsg: '亲，正在努力加载中……',
+            nowrap: false,
+            pagination: true, rownumbers: true, singleSelect: true, fitColumns: true, autoRowHeight: false,
+            pagePosition: 'bottom',
+            sortName: 'CreateTime', sortOrder: 'desc',
+            columns: [[
+                { title: 'ID', field: 'Id', width: 60, align: 'center' },
+                { title: '分类', field: 'Type', width: 100, align: 'center' },
+                { title: '名称', field: 'Name', width: 120, align: 'center' },
+                { title: '别名', field: 'Alias', width: 120, align: 'center' },
+                { title: '组成', field: 'MakeUp', width: 220, align: 'center' },
+                {
+                    title: '创建时间', field: 'CreateTime', width: 130, align: 'center'
+                }
+            ]],
+            onDblClickRow: function (index, row) {
+                showfj(row.Id);
+            }
+        });
+    }
+    function add() {
+        window.parent.addTab('添加方剂', '/Prescription/Add');
+    }
+    function edit() {
+        var row = $("#tbGrid").datagrid("getSelected");
+        if (row == null) {
+            $.messager.alert('提示', "亲，您还没有选择任何行哦！");
+            return;
+        }
+        window.parent.addTab('编辑方剂', '/Prescription/Edit/' + row.Id);
+    }
+
+    function del() {
+        var row = $("#tbGrid").datagrid("getSelected");
+        if (row == null) {
+            $.messager.alert('提示', "亲，您还没有选择任何行哦！");
+            return;
+        }
+        $.messager.confirm('提示', '亲，您确定要删除吗？', function (data) {
+            if (data) {
+                $.post("/Prescription/Remove/" + row.Id, function (result) {
+                    if (result == "success") {
+                        $.messager.alert('提示', "亲，删除成功！");
+                        reload();
+                    } else {
+                        $.messager.alert('提示', "亲，删除失败，请稍后再试！");
+                    }
+                });
+            } else {
+                return;
+            }
+        });
+    }
+
+    function showfj(id) {
+        var str = [];
+        $.getJSON("/Prescription/GetInfo/" + id, function (data) {
+            str.push("<span style='font-weight:bold;'>名称：</span><span>" + data.Name + "</span><br />");
+            str.push("<span style='font-weight:bold;'>处方：</span><p>" + data.MakeUp + "</p>");
+            str.push("<span style='font-weight:bold;'>功效：</span><p>" + data.Effect + "</p>");
+            $("#div_fj").html(str.join(" "));
+        });
+        $("#div_dialog").dialog("open");
+    }
+
+    function reload() {
+        $("#tbGrid").datagrid("reload");
+    }
+    function doSearch(value, name) {
+        initData(name, value);
+    }
+</script>

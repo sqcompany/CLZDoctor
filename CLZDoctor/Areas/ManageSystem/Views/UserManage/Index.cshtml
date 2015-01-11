@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ManageSystem/Views/Shared/_Layout.cshtml";
+}
+<div id="toolbar" style="padding-top:5px;">
+    <div style="margin:10px 10px">
+
+    </div>
+    <div style="margin-bottom:5px">
+        <a id="a_remove" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true">删除</a>
+        <a id="a_freeze" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-lock" plain="true">冻结</a>
+        <a id="a_reload" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-reload" plain="true">刷新</a>
+        <div style="float:right;">
+            <input class="easyui-searchbox" data-options="prompt:'请输入内容',menu:'#mm',searcher:doSearch" style="width:350px;" />
+            <div id="mm">
+                <div data-options="name:'1',iconCls:'icon-ok'">用户名</div>
+                <div data-options="name:'2',iconCls:'icon-ok'">手机号</div>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="tbGrid"></table>
+<script>
+    $(function () {
+        initData(0, "");
+        $("#a_remove").on("click", remove);
+        $("#a_freeze").on("click", freeze);
+        $("#a_reload").on("click", reload);
+    })
+    function initData(type, value) {
+        var data = { type: type, value: value };
+        $("#tbGrid").datagrid({
+            fit: true,
+            title: '用户列表',
+            iconCls: 'icon-table',
+            toolbar: '#toolbar',
+            border: false,
+            queryParams: data,
+            url: '/UserManage/UserGrid',
+            idField: 'Id',
+            loadMsg: '亲，正在努力加载中……',
+            nowrap: false,
+            pagination: true, rownumbers: true, singleSelect: true, fitColumns: true, autoRowHeight: false,
+            pagePosition: 'bottom',
+            sortName: 'CreateTime', sortOrder: 'desc',
+            columns: [[
+                { title: 'ID', field: 'Id', width: 60, align: 'center' },
+                { title: '名称', field: 'Name', width: 120, align: 'center' },
+                { title: '手机号', field: 'Mobile', width: 120, align: 'center' },
+                { title: '密码', field: 'Password', width: 220, align: 'center' },
+                {
+                    title: '状态', field: 'CurrState', width: 80, align: 'center', formatter: function (value, row, index) {
+                        if (value == 0) {
+                            return "正常";
+                        } else {
+                            return "冻结";
+                        }
+                    }
+                },
+                {
+                    title: '创建时间', field: 'CreateTime', width: 130, align: 'center'
+                }
+            ]]
+        });
+    }
+    function doSearch(value, name) {//搜索
+        initData(name, value);
+    }
+    function remove() {//删除
+        var row = $("#tbGrid").datagrid("getSelected");
+        if (row == null) {
+            $.messager.alert('提示', "亲，您还没有选择任何行哦！");
+            return;
+        }
+        $.messager.confirm('提示', '亲，您确定要删除吗？', function (data) {
+            if (data) {
+                $.post("/UserManage/RemoveUser/" + row.Id, function (result) {
+                    $.messager.alert(result.Message);
+                    reload();
+                });
+            } else {
+                return;
+            }
+        });
+    }
+    function freeze() { //冻结
+        var row = $("#tbGrid").datagrid("getSelected");
+        if (row == null) {
+            $.messager.alert('提示', "亲，您还没有选择任何行哦！");
+            return;
+        }
+        
+        if (row.CurrState == 1) {
+            $.messager.alert("提示", "亲，该用户已经冻结。");
+            return;
+        }
+        $.messager.confirm('提示', '亲，您确定要冻结吗？', function (data) {
+            if (data) {
+                $.post("/UserManage/FreezeUser/" + row.Id, function (result) {
+                    $.messager.alert(result.Message);
+                    reload();
+                });
+            } else {
+                return;
+            }
+        });
+    }
+    function reload() {//刷新
+        $("#tbGrid").datagrid("reload");
+    }
+</script>

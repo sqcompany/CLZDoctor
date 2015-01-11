@@ -1,0 +1,64 @@
+﻿@using CLZDoctor.Entities
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/ManageSystem/Views/Shared/_Layout.cshtml";
+}
+<style>
+    * {
+        font-family: 'Microsoft YaHei';
+        font-size: 12px;
+    }
+
+    .rowdiv {
+        padding: 5px;
+    }
+</style>
+@{
+    var data = ViewBag.Data as Medical;
+}
+<form id="medical" method="POST">
+    <input type="hidden" name="Id" value="@data.Id" />
+    <div class="rowdiv">
+        <label>姓名：</label><input value="@data.Patient" name="Patient" type="text" class="easyui-textbox" style="width:200px;height:30px;" />
+    </div>
+    <div class="rowdiv">
+        <label>性别：</label>
+        <select id="Gender" name="Gender" class="easyui-combobox">
+            <option value="0">女</option>
+            <option value="1">男</option>
+        </select>
+    </div>
+    <div class="rowdiv">
+        <label>年龄：</label><input value="@data.Age" name="Age" type="text" class="easyui-numberbox " style="width:60px;height:30px;" />
+    </div>
+    <div class="rowdiv">
+        <label>诊断：</label><input value="@data.Diagnose" name="Diagnose" class="easyui-textbox" data-options="multiline:true" style="width:500px;height:200px;" />
+    </div>
+    <div class="rowdiv">
+        <label>治疗：</label><input value="@data.Treatment" name="Treatment" class="easyui-textbox" data-options="multiline:true" style="width:500px;height:200px;" />
+    </div>
+    <div class="rowdiv">
+        <label>电话：</label><input value="@data.Contract" name="Contract" class="easyui-textbox" style="width:200px;height:30px;" />
+    </div>
+    <div class="rowdiv">
+        <label>处方：</label><input value="@data.Prescription" name="Prescription" class="easyui-textbox" data-options="multiline:true" style="width:500px;height:200px;" />
+    </div>
+</form>
+<div class="rowdiv">
+    <a id="a_submit" href="javascript:void(0)" onclick="submitForm()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+</div>
+<script>
+    $(function () {
+        $("#Gender").combobox('setValue', @data.Gender);
+    });
+    function submitForm() {
+        $("#medical").form('submit', {
+            url: "/Medical/Save",
+            success: function (data) {
+                // alert(data);
+                var result = $.parseJSON(data);
+                $.messager.alert("提示", result.Message);
+            }
+        });
+    }
+</script>

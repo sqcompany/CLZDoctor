@@ -17,6 +17,14 @@ namespace CLZDoctor
             bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include(
                         "~/Content/bootstrap.css",
                         "~/Content/bootstrap-theme.css"));
+            //绑定easyui
+            bundles.Add(new ScriptBundle("~/bundles/easyui/js").Include(
+                        "~/Scripts/jquery-easyui-1.4/jquery.easyui.js",
+                        "~/Scripts/jquery-easyui-1.4/locale/easyui-lang-zh_CN.js"));
+            bundles.Add(new StyleBundle("~/Content/themes/bootstrap/css").Include(
+                        "~/Content/themes/bootstrap/easyui.css",
+                        "~/Content/themes/icon.css",
+                        "~/Content/themes/color.css"));
 
         }
     }
